@@ -1,0 +1,99 @@
+<div class="d-flex w-100 justify-content-center">
+    <div class="card bg-dark text-light w-50">
+        <div class="card-body">
+            <h4 class="card-title text-center my-4">SignIn</h4>
+            <div class="d-flex justify-content-center w-100">
+                <form
+                    [formGroup]="signinForm"
+                    (submit)="submitFun()"
+                    class="d-flex flex-column align-items-center py-4"
+                >
+                    <label
+                        class="form-item"
+                        for="userName"
+                    >User Name</label>
+                    <input 
+                        class="form-control"
+                        type="text"
+                        id="userName"
+                        formControlName="name"
+                        required
+                    >
+                    <!-- this is of invalid user name -->
+                    <div 
+                        *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+                        class="text-danger my-2"
+                    >
+                        <!-- required validation error -->
+                        <div *ngIf="name?.errors?.['required']">
+                            <span>
+                                User name required
+                            </span>
+                        </div>
+                         <!-- the validation for checking the special character in name -->
+                         <div *ngIf="name?.errors?.['pattern']">
+                            
+                            <span>
+                                Name must be alphabetical only
+                            </span>
+                            <br>
+                        </div>
+                        <!-- min length validation -->
+                        <div *ngIf="name?.errors?.['minlength']">
+                            
+                            <span>
+                                Name must be atleast 5 chracters
+                            </span>
+                            <br>
+                        </div>
+                    </div>
+                    <label
+                        class="form-item"
+                        for="password"
+                    >Password</label>
+                    <div class="input-group">
+                        <input 
+                            class="form-control"
+                            type="password"
+                            id="password"
+                            formControlName="password"
+                            required
+                        >
+                        <button class="btn btn-light" type="button"><fa-icon [icon]="faEye"></fa-icon></button>
+                    </div>
+                    <!-- password validation -->
+                    <div
+                        *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+                        class="text-danger"
+                    >
+                        <!-- empty password -->
+                        <div *ngIf="password?.errors?.['required']">
+                            <span>Password Required</span>
+                        </div>
+
+                        <!-- if password has required pattern -->
+                        <div *ngIf="password?.errors?.['pattern']">
+                            <span>Password must have one capital letter</span><br>
+                            <span>one spacial character [!@#$%^&*] and number</span>
+                        </div>
+
+                        <!-- if password min -->
+                        <div *ngIf="password?.errors?.['minLength']">
+                            <span>Password must be 6 character</span><br>
+                        </div>
+
+                        <!-- if password max -->
+                        <div *ngIf="password?.errors?.['maxLength']">
+                            <span>Password must be less then 8 character</span><br>
+                        </div>
+                    </div>
+                    <button 
+                        class="btn btn-primary text-dark my-3"
+                        type="submit"
+                        value="submit"
+                    >Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
